@@ -1,12 +1,12 @@
 import zmq, time
 
 context = zmq.Context()
-s = context.socket(zmq.SUB)
-p = 'tcp://127.0.0.1:2000'
-s.connect(p)
+socket = context.socket(zmq.SUB) # subscription socket
+p = 'tcp://127.0.0.1:2000'  # where to communicate
+socket.connect(p) # connecting to indicated server
 
-s.setsockopt_string(zmq.SUBSCRIBE, '')
+socket.setsockopt_string(zmq.SUBSCRIBE, '') # subscribing
 while True:
-    receive = s.recv()
-    print(receive)
+    receive = socket.recv() # receving the message
+    print(receive.decode("utf-8")) # printing the received message and removing 'b
     time.sleep(1)
